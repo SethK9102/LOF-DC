@@ -15,6 +15,7 @@ class Entity():
         self.luck = luck
         self.speed = speed
 
+
     def get_name(self):
         return self.name
     
@@ -57,6 +58,9 @@ class Entity():
         self.health += amount
         if self.health > self.max_health:
             self.health = self.max_health
+    
+
+        
 
 class Player(Entity):
     def __init__(self, name, health, attack, defense, experiance, gold, luck, speed):
@@ -65,6 +69,8 @@ class Player(Entity):
         self.inventory = []
         self.floor = 0
         self.position = {'x': 0, 'y': 0}
+        self.weapon = None
+        self.armor = None
     def get_level(self):
         return self.level
     
@@ -87,6 +93,52 @@ class Player(Entity):
         console.print("5. Giant")
         choice = int(input("Enter the number of your choice: ")) if choice in [1, 2, 3, 4, 5] else self.ask_class()
         return choice
+    
+    def set_weapon(self, weapon):
+        self.attack -= self.weapon.get_attack() if self.weapon else 0
+        self.weapon = weapon
+        self.attack += weapon.get_attack()
+        
+    def set_armor(self, armor):
+        self.defense -= self.armor.get_defense() if self.armor else 0
+        self.armor = armor
+        self.defense += armor.get_defense()
+        
+    def add_to_inventory(self, item):
+        self.inventory.append(item)
+
+        
+    
+class Warrior(Player):
+    def __init__(self, name):
+        super().__init__(name, health=140, attack=20, defense=15, experiance=0, gold=0, luck=5, speed=10)
+        self.attack_type = "Melee"
+        self.class_type = "Warrior"
+        
+        
+class Mage(Player):
+    def __init__(self, name):
+        super().__init__(name, health=100, attack=30, defense=10, experiance=0, gold=0, luck=10, speed=15)
+        self.attack_type = "Magic"
+        self.class_type = "Mage"
+        
+class Rogue(Player):
+    def __init__(self, name):
+        super().__init__(name, health=120, attack=25, defense=12, experiance=0, gold=0, luck=15, speed=20)
+        self.attack_type = "Stealth"
+        self.class_type = "Rogue"
+        
+class Theif(Player):
+    def __init__(self, name):
+        super().__init__(name, health=110, attack=22, defense=11, experiance=0, gold=0, luck=20, speed=25)
+        self.attack_type = "Steal"
+        self.class_type = "Theif"
+        
+class Giant(Player):
+    def __init__(self, name):
+        super().__init__(name, health=200, attack=18, defense=20, experiance=0, gold=0, luck=3, speed=8)
+        self.attack_type = "Crush"
+        self.class_type = "Giant"
     
 
     

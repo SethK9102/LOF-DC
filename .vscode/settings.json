@@ -1,0 +1,7 @@
+{
+    "python.testing.pytestArgs": [
+        "Lof_dc_main"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}

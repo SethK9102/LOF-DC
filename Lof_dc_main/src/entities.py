@@ -114,8 +114,7 @@ class Warrior(Player):
         super().__init__(name, health=140, attack=20, defense=15, experiance=0, gold=0, luck=5, speed=10)
         self.attack_type = "Melee"
         self.class_type = "Warrior"
-        
-        
+              
 class Mage(Player):
     def __init__(self, name):
         super().__init__(name, health=100, attack=30, defense=10, experiance=0, gold=0, luck=10, speed=15)
@@ -141,6 +140,14 @@ class Giant(Player):
         self.class_type = "Giant"
     
 
-    
 
+class Enemies(Entity):
+    def __init__(self, name: str = "Enemy", health: int = 100, attack: int = 10, defense: int = 8, experiance: int = 10, gold: int = 15, luck: int = 10, speed: int = 8, floors_avalible: list = [1, 2, 3, 4, 5, 6, 7], discription: str = "Basic Enemy"):
+        self.floors_avalible = floors_avalible
+        self.discription = discription
+
+    def get_floors_avalible(self):
+        return self.floors_avalible
     
+    def get_discription(self):
+        return self.discription

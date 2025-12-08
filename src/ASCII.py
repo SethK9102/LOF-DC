@@ -1,6 +1,7 @@
 from PIL import Image
 
-def image_to_ascii(image_path, output_width=100):
+
+def image_to_ascii(self, image_path, output_width=100):
     try:
         img = Image.open(image_path)
     except FileNotFoundError:
@@ -15,7 +16,7 @@ def image_to_ascii(image_path, output_width=100):
     img = img.resize((output_width, output_height)).convert('L')
 
     # ASCII characters ordered by intensity
-    ascii_chars = " .:-=+*#%@cvnxriltfjyzuaeos"
+    ascii_chars = " ':,;!Il><+_-?][}{1)(|\/*jftunxrvczJYXUCQL0ZOWmqpdhbkoa#&MB8%@$"
     # You can customize this string for different visual effects
 
     ascii_art = ""

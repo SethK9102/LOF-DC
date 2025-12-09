@@ -1,9 +1,10 @@
 
 
 class Entity:
-    def __init__(self, name, health, strength, defense, m_defense, speed, luck, attack_type, exp, lvl, gold, inventory = {}, equipped = {}, floor = 0):
+    def __init__(self, name, health=100, strength=20, defense=15, m_defense=15, speed=10, luck=7, attack_type="Physical", exp=0, lvl=1, gold=0, inventory={}, equipped={}, floor=0):
         self.name = name
         self.health = health
+        self.max_health = health
         self.strength = strength
         self.defense = defense
         self.m_defense = m_defense
@@ -29,4 +30,3 @@ class Entity:
     def stats_info(self):
         return f"Name: {self.name}\nLevel: {self.lvl}\nHealth: {self.health}\nStrength: {self.strength}\nDefense: {self.defense}\nMagic Defense: {self.m_defense}\nSpeed: {self.speed}\nLuck: {self.luck}\nExperience: {self.exp}/{self.exp_cap}\nGold: {self.gold}"
 
-    

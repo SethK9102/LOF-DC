@@ -1,4 +1,4 @@
-from rich.console import Console
+from main import print
 import os
 import time
 
@@ -12,11 +12,10 @@ class Item:
         self.gold = gold
         self.value = value
         self.floors = floors
-        self.console = Console()
 
     def display_info(self):
         clear()
-        self.console.print(f"[bold yellow]Item Information:[/bold yellow]\n"
+        print(f"[bold yellow]Item Information:[/bold yellow]\n"
                             f"Name: [bold cyan]{self.name}[/bold cyan]\n"
                             f"Type: [bold magenta]{self.type}[/bold magenta]\n"
                             f"Gold Value: [bold green]{self.gold}[/bold green]\n"

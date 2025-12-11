@@ -1,5 +1,5 @@
 from Entity import Entity
-from rich.console import Console
+from main import print
 import os
 import time
 
@@ -12,20 +12,19 @@ class Player(Entity):
         super().__init__(name, health, strength, defense, m_defense, speed, luck, attack_type, exp, lvl, gold, inventory, equipped, floor)
         self.position = [0, 0]
         self.UID = None
-        self.console = Console()
     
     def new_player(self):
         clear()
-        self.console.print("[bold green]Welcome to Legends of Fantasy: Dungeon Crawler![/bold green]")
+        print("[bold green]Welcome to Legends of Fantasy: Dungeon Crawler![/bold green]")
         self.name = input("Enter your character's name: ")
         wait(0.5)
-        self.console.print(f"\nHello, [bold blue]{self.name}[/bold blue]! Let's choose your class.")
+        print(f"\nHello, [bold blue]{self.name}[/bold blue]! Let's choose your class.")
         wait(1)
         return self.get_class()
     
     def get_class(self):
         clear()
-        self.console.print("[bold green]Choose your class:[/bold green]" \
+        print("[bold green]Choose your class:[/bold green]" \
         "\n1. Warrior\n2. Mage\n3. Rogue\n4. Giant\n5. Thief")
         class_choice = input("Enter the number corresponding to your choice: ")
         match class_choice:
@@ -47,27 +46,27 @@ class Player(Entity):
         consumable_list = []
         key_list = []
         if not self.inventory:
-            self.console.print("[bold yellow]Your inventory is empty.[/bold yellow]")
+            print("[bold yellow]Your inventory is empty.[/bold yellow]")
         else:
-            self.console.print("[bold green]Your Inventory:[/bold green]")
+            print("[bold green]Your Inventory:[/bold green]")
             for item_name, item in self.inventory.items():
                 if item.type == "Weapon":
-                    self.console.print(f"[bold green]Equipped Weapon:[/bold green] [bold cyan]{item_name}[/bold cyan]" f"(Strength Increase: [bold magenta]{item.value}[/bold magenta])")
+                    print(f"[bold green]Equipped Weapon:[/bold green] [bold cyan]{item_name}[/bold cyan]" f"(Strength Increase: [bold magenta]{item.value}[/bold magenta])")
                 elif item.type == "Armor":
-                    self.console.print(f"[bold green]Equipped Armor:[/bold green] [bold cyan]{item_name}[/bold cyan]" f"(Defense Increase: [bold magenta]{item.value}[/bold magenta])")
+                    print(f"[bold green]Equipped Armor:[/bold green] [bold cyan]{item_name}[/bold cyan]" f"(Defense Increase: [bold magenta]{item.value}[/bold magenta])")
                 elif item.type == "Consumable":
                     consumable_list.append((item, item_name))
             if consumable_list:
-                self.console.print("\n[bold green]Consumables:[/bold green]")
+                print("\n[bold green]Consumables:[/bold green]")
                 for item, item_name in consumable_list:
-                    self.console.print(f"- [bold cyan]{item_name}[/bold cyan]" f"(Type: [bold magenta]{item.type}[/bold magenta])")
+                    print(f"- [bold cyan]{item_name}[/bold cyan]" f"(Type: [bold magenta]{item.type}[/bold magenta])")
             for item_name, item in self.inventory.items():
                 if item.type == "Key Item":
                     key_list.append((item, item_name))
             if key_list:
-                self.console.print("\n[bold green]Key Items:[/bold green]")
+                print("\n[bold green]Key Items:[/bold green]")
                 for item, item_name in key_list:
-                    self.console.print(f"- [bold cyan]{item_name}[/bold cyan]" f"(Type: [bold magenta]{item.type}[/bold magenta])")
+                    print(f"- [bold cyan]{item_name}[/bold cyan]" f"(Type: [bold magenta]{item.type}[/bold magenta])")
         input("\nPress Enter to continue...")
 
     def add_item(self, item):
@@ -76,33 +75,33 @@ class Player(Entity):
             case "Weapon":
                 for i in self.inventory.values():
                     if i.type == "Weapon" and i.name == item.name:
-                        self.console.print(f"[bold yellow]You already have this weapon:[/bold yellow] {item.name}")
+                        print(f"[bold yellow]You already have this weapon:[/bold yellow] {item.name}")
                         return
                     elif i.type == "Weapon":
                         count += 1
                 if count >= 1:
-                    self.console.print(f"[bold yellow]You can only equip one weapon at a time. Replace your current weapon?[/bold yellow] (y/n)")
+                    print(f"[bold yellow]You can only equip one weapon at a time. Replace your current weapon?[/bold yellow] (y/n)")
                     choice = input().lower()
                     if choice == 'y':
                         self.inventory[i.name] = item
                         self.strength -= self.inventory[i.name].value
                         self.strength += item.value
                         self.equipped[i.name] = item
-                        self.console.print(f"[bold green]You have equipped:[/bold green] {item.name}")
+                        print(f"[bold green]You have equipped:[/bold green] {item.name}")
                 else:
                     self.strength += item.value
                     self.equipped[item.name] = item
                     self.inventory[item.name] = item
-                    self.console.print(f"[bold green]You have equipped:[/bold green] {item.name}")
+                    print(f"[bold green]You have equipped:[/bold green] {item.name}")
             case "Armor":
                 for i in self.inventory.values():
                     if i.type == "Armor" and i.name == item.name:
-                        self.console.print(f"[bold yellow]You already have this armor:[/bold yellow] {item.name}")
+                        print(f"[bold yellow]You already have this armor:[/bold yellow] {item.name}")
                         return
                     elif i.type == "Armor":
                         count += 1
                 if count >= 1:
-                    self.console.print(f"[bold yellow]You can only equip one armor at a time. Replace your current armor?[/bold yellow] (y/n)")
+                    print(f"[bold yellow]You can only equip one armor at a time. Replace your current armor?[/bold yellow] (y/n)")
                     choice = input().lower()
                     if choice == 'y':
                         self.defense -= self.inventory[i.name].value
@@ -110,37 +109,37 @@ class Player(Entity):
                         self.equipped[item.name] = item
                         self.inventory[item.name] = item
                         self.inventory.pop(i.name)
-                        self.console.print(f"[bold green]You have equipped:[/bold green] {item.name}")
+                        print(f"[bold green]You have equipped:[/bold green] {item.name}")
                 else:
                     self.defense += item.value
                     self.equipped[item.name] = item
                     self.inventory[item.name] = item
-                    self.console.print(f"[bold green]You have equipped:[/bold green] {item.name}")
+                    print(f"[bold green]You have equipped:[/bold green] {item.name}")
             case "Consumable":
                 for i in self.inventory.values():
                     if i.type == "Consumable":
                         count += 1
                 if count >= 5:
-                    self.console.print(f"[bold yellow]You can only use five consumables at a time. Discard an existing consumable to add this one?[/bold yellow] (y/n)")
+                    print(f"[bold yellow]You can only use five consumables at a time. Discard an existing consumable to add this one?[/bold yellow] (y/n)")
                     choice = input().lower()
                     if choice == 'y':
-                        self.console.print("Which consumable would you like to discard?")
+                        print("Which consumable would you like to discard?")
                         for i in self.inventory.values():
                             if i.type == "Consumable":
-                                self.console.print(f"- [bold cyan]{i.name}[/bold cyan]")
+                                print(f"- [bold cyan]{i.name}[/bold cyan]")
                         discard_choice = input("Enter the name of the consumable to discard: ")
                         if discard_choice in self.inventory:
                             self.inventory.pop(discard_choice)
-                            self.console.print(f"[bold green]You have discarded:[/bold green] {discard_choice}")
+                            print(f"[bold green]You have discarded:[/bold green] {discard_choice}")
                         self.inventory[item.name] = item
                 else:
                     self.inventory[item.name] = item
-                    self.console.print(f"[bold green]You have added a consumable:[/bold green] {item.name}")
+                    print(f"[bold green]You have added a consumable:[/bold green] {item.name}")
             case "Key Item":
                 self.inventory[item.name] = item
-                self.console.print(f"[bold green]You have added a key item:[/bold green] {item.name}")
+                print(f"[bold green]You have added a key item:[/bold green] {item.name}")
             case _:
-                self.console.print(f"[bold red]Unknown item type:[/bold red] {item.type}")
+                print(f"[bold red]Unknown item type:[/bold red] {item.type}")
 
 
 

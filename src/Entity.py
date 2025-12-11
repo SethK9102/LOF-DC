@@ -1,6 +1,6 @@
-from rich.console import Console
 import os
 import time
+from main import print
 
 clear = lambda: os.system('cls' if os.name == 'nt' else 'clear')
 wait = time.sleep
@@ -23,7 +23,6 @@ class Entity:
         self.equipped = equipped
         self.floor = floor
         self.exp_cap = 100
-        self.console = Console()
 
     def is_alive(self):
         return self.health > 0
@@ -35,14 +34,14 @@ class Entity:
 
     def choose_lvl_up_stat(self):
         clear()
-        self.console.print("Choose a stat to increase:")
-        self.console.print("1. Health")
-        self.console.print("2. Strength")
-        self.console.print("3. Defense")
-        self.console.print("4. Magic Defense")
-        self.console.print("5. Speed")
-        self.console.print("6. Luck")
-        choice = self.console.input("Enter your choice (1-6): ")
+        print("Choose a stat to increase:")
+        print("1. Health")
+        print("2. Strength")
+        print("3. Defense")
+        print("4. Magic Defense")
+        print("5. Speed")
+        print("6. Luck")
+        choice = input("Enter your choice (1-6): ")
         if choice == "1":
             self.health += 10
         elif choice == "2":
@@ -56,7 +55,7 @@ class Entity:
         elif choice == "6":
             self.luck += 5
         else:
-            self.console.print("Invalid choice.")
+            print("Invalid choice.")
             self.choose_lvl_up_stat()
 
 

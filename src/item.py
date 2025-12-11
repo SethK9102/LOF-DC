@@ -1,4 +1,4 @@
-from main import print
+from main import rprint
 import os
 import time
 
@@ -15,11 +15,11 @@ class Item:
 
     def display_info(self):
         clear()
-        print(f"[bold yellow]Item Information:[/bold yellow]\n"
-                            f"Name: [bold cyan]{self.name}[/bold cyan]\n"
-                            f"Type: [bold magenta]{self.type}[/bold magenta]\n"
-                            f"Gold Value: [bold green]{self.gold}[/bold green]\n"
-                            f"Effect Value: [bold blue]{self.value}[/bold blue]\n"
-                            f"Floors: [bold blue]{', '.join(map(str, self.floors))}[/bold blue]")
+        rprint(f"Item Information:\n"
+               f"Name: {self.name}\n"
+               f"Type: {self.type}\n"
+               f"Gold Value: {self.gold}\n"
+               f"Effect Value: {self.value}\n"
+               f"Floors: {', '.join(map(str, self.floors))}", delay=0.03, style="bold yellow")
 
-        
+

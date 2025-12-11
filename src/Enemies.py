@@ -1,5 +1,5 @@
 import random
-from main import print
+from main import rprint
 import os
 import time
 from Entity import Entity
